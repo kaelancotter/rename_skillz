@@ -86,12 +86,13 @@ class RenameCaseTestCase(unittest.TestCase):
         for p in self.case_files():
             self.assertTrue(RenameCase.is_case_in_path(p, self.TEST_CASE))
         for p in self.nocase_bases():
-            self.assertTrue(RenameCase.is_case_in_path(os.path.join(self.case_dir(), p)))
-            self.assertFalse(RenameCase.is_case_in_path(os.path.join(self.work_dir(), p)))
+            self.assertTrue(RenameCase.is_case_in_path(os.path.join(self.case_dir(), p), self.TEST_CASE))
+            self.assertFalse(RenameCase.is_case_in_path(os.path.join(self.work_dir(), p), self.TEST_CASE))
 
     def test_find_files_with_case(self):
-        expected = list(set(self.case_files() + [os.path.join(self.case_dir(), bn) for bn in self.nocase_bases()]))
-        self.assertListEqual(expected, RenameCase.find_files_with_case(self.work_dir(), self.TEST_CASE))
+        expected = [os.path.join(self.case_dir(), bn) for bn in [self.TEST_OTHERCASE, self.TEST_NOCASE]]
+        expected += self.case_files()
+        self.assertListEqual(sorted(expected), sorted(RenameCase.find_files_with_case(self.work_dir(), self.TEST_CASE)))
 
     def test_replace_case(self):
         self.assertEqual(self.outcase_root(), RenameCase.replace_case(self.case_root(), self.TEST_CASE, self.OUT_CASE))
@@ -99,8 +100,6 @@ class RenameCaseTestCase(unittest.TestCase):
     def test_rename_file(self):
         RenameCase.rename_file(self.case_root(), self.outcase_root())
         self.assertTrue(os.path.isfile(self.outcase_root()))
-
-
 
 
 if __name__ == '__main__':
