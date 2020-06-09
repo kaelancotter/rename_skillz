@@ -9,4 +9,4 @@ rename_file(src, dst, create_folders=False)
 Results can be checked by running the included rename_case_test.py tests
 
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/kaelancotter/rename_skillz/rename_skillz.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/kaelancotter/rename_skillz/blob/master/rename_skillz.ipynb)
